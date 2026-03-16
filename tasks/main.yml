@@ -1,0 +1,25 @@
+#SPDX-License-Identifier: BSD-3-Clause
+---
+# tasks file for phalanx
+- name: Assert that the connection user is root
+  ansible.builtin.assert:
+    that: ansible_user == "root"
+    fail_msg: "Connection failed: Not connected as root user"
+    success_msg: "Successfully connected as root"
+
+- name: Check if 'pveum' exist
+  ansible.builtin.stat:
+    path: /usr/sbin/pveum
+  register: pveum_check
+
+- name: Fail if 'pveum' not found
+  ansible.builtin.fail:
+    msg: "pveum is not installed"
+  when: not pveum_check.stat.exists
+
+- name: Assert 'pveum' is executable
+  ansible.builtin.assert:
+    that: pveum_check.stat.executable
+    fail_msg: "'pveum' is not executable"
+    success_msg: "'pveum' is executable"
+    
