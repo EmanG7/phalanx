@@ -22,4 +22,7 @@
     that: pveum_check.stat.executable
     fail_msg: "'pveum' is not executable"
     success_msg: "'pveum' is executable"
-    
+
+- name: Import config backup tasks
+  ansible.builtin.import_tasks: config-backup.yml
+  

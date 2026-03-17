@@ -1,0 +1,37 @@
+#SPDX-License-Identifier: BSD-3-Clause
+---
+
+- name: Create backup directory
+  ansible.builtin.file:
+    path: "/root/config-backup-{{ ansible_date_time.iso8601 }}"
+    state: directory
+    owner: root
+    group: root
+  register: backup_directory
+
+- name: Backup config items
+  module_defaults:
+    ansible.builtin.copy:
+      owner: root
+      group: root
+      remote_src: true
+  block: 
+    - name: Backup sshd_config
+      ansible.builtin.copy:
+        src: "/etc/ssh/sshd_config"
+        dest: "{{ backup_directory.path }}/"
+
+    - name: Backup grub
+      ansible.builtin.copy:
+        src: "/etc/default/grub"
+        dest: "{{ backup_directory.path }}/"
+
+    - name: Backup user.cfg
+      ansible.builtin.copy:
+        src: "/etc/pve/user.cfg"
+        dest: "{{ backup_directory.path }}/"
+
+    - name: Backup pam.d directory
+      ansible.builtin.copy:
+        src: "/etc/pam.d/"
+        dest: "{{ backup_directory.path }}/pam.d/"
