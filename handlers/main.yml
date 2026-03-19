@@ -1,3 +1,7 @@
 #SPDX-License-Identifier: BSD-3-Clause
 ---
 # handlers file for phalanx
+- name: service auditd restart
+  ansible.builtin.service:
+    name: auditd
+    state: restarted

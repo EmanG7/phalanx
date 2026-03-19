@@ -41,3 +41,6 @@
     owner: root
     group: root
     mode: 0644
+
+- name: Import audit tasks
+  ansible.builtin.import_tasks: audit.yml

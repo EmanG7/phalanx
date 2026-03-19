@@ -1,0 +1,26 @@
+#SPDX-License-Identifier: BSD-3-Clause
+---
+
+- name: Install auditd package
+  ansible.builtin.package:
+    name: auditd
+    state: latest
+
+- name: Enable and Start auditd
+  ansible.builtin.service:
+    name: auditd
+    state: started
+    enabled: true
+
+- name: Copy rules over to host
+  ansible.builtin.copy:
+    src: audit/phalanx.rules
+    dest: /etc/audit/rules.d/phalanx.rules
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Load rules on host
+  ansible.builtin.command: >
+    augenrules --load
+  notify: service auditd restart
