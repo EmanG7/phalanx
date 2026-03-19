@@ -25,4 +25,19 @@
 
 - name: Import config backup tasks
   ansible.builtin.import_tasks: config-backup.yml
-  
+
+- name: Attempt install all packages
+  ansible.builtin.package:
+    name: 
+      - sudo
+      - apt-listchanges
+      - unattended-upgrades
+    state: latest
+
+- name: Set up 20auto-upgrades
+  ansible.builtin.copy:
+    src: 20auto-upgrades
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    owner: root
+    group: root
+    mode: 0644
