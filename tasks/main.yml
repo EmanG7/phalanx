@@ -44,3 +44,6 @@
 
 - name: Import audit tasks
   ansible.builtin.import_tasks: audit.yml
+
+- name: Include firewall tasks
+  ansible.builtin.include_tasks: firewall.yml

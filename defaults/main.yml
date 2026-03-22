@@ -1,3 +1,9 @@
 #SPDX-License-Identifier: BSD-3-Clause
 ---
 # defaults file for phalanx
+iptables_tables: 
+  - "filter"
+  - "security"
+  - "mangle"
+  - "nat"
+  - "raw"

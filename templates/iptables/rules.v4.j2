@@ -1,0 +1,54 @@
+#
+*filter
+:INPUT DROP [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+#
+# Allow loopback
+-A INPUT -i lo -j ACCEPT
+#
+# Allow established connections
+-A INPUT -m state --state RELATED,ESTABLISHED -j ACCEPT
+#
+# ICMP
+-A INPUT -p icmp -m icmp --icmp-type 8 -j ACCEPT
+#
+# SSH
+-A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --set --name SSH --mask 255.255.255.255 --rsource
+-A INPUT -p tcp -m tcp --dport 22 -m state --state NEW -m recent --update --seconds 60 --hitcount 10 --name SSH --mask 255.255.255.255 --rsource -j DROP
+-A INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+#
+# Proxmox WebUI
+-A INPUT -p tcp -m tcp --dport 8006 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 8007 -j ACCEPT
+#
+# Spice/VNC
+-A INPUT -p tcp -m tcp --dport 3218 -j ACCEPT
+-A INPUT -p tcp -m tcp --dport 5900:5999 -j ACCEPT
+COMMIT
+#
+*security
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+COMMIT
+#
+*mangle
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:FORWARD ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+COMMIT
+#
+*nat
+:PREROUTING ACCEPT [0:0]
+:INPUT ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+:POSTROUTING ACCEPT [0:0]
+COMMIT
+#
+*raw
+:PREROUTING ACCEPT [0:0]
+:OUTPUT ACCEPT [0:0]
+COMMIT
