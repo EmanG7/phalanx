@@ -24,9 +24,9 @@
     success_msg: "'pveum' is executable"
 
 - name: Import config backup tasks
-  ansible.builtin.import_tasks: config-backup.yml
+  ansible.builtin.import_tasks: modules/config-backup.yml
 
-- name: Attempt install all packages
+- name: Install minimum packages
   ansible.builtin.package:
     name: 
       - sudo
@@ -43,7 +43,7 @@
     mode: 0644
 
 - name: Import audit tasks
-  ansible.builtin.import_tasks: audit.yml
+  ansible.builtin.import_tasks: modules/audit.yml
 
 - name: Include firewall tasks
-  ansible.builtin.include_tasks: firewall.yml
+  ansible.builtin.include_tasks: modules/firewall.yml
