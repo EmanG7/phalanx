@@ -1,0 +1,36 @@
+#SPDX-License-Identifier: BSD-3-Clause
+---
+
+- name: Install fail2ban package
+  ansible.builtin.package:
+    name: fail2ban
+    state: latest
+
+- name: Make filter.d under fail2ban
+  ansible.builtin.file:
+    path: /etc/fail2ban/filter.d
+    state: directory
+    owner: root
+    group: root
+
+- name: Import template of fail2ban/jail.local
+  ansible.builtin.template:
+    src: fail2ban/jail.local.j2
+    dest: /etc/fail2ban/jail.local
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Import file of fail2ban/proxmox.conf
+  ansible.builtin.copy:
+    src: fail2ban/proxmox.conf
+    dest: /etc/fail2ban/filter.d/proxmox.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Enabled and Start fail2ban
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: true

@@ -1,0 +1,24 @@
+#
+# Init lock out time: 24h
+# Max lock out time: 30d
+# Fail attempts: 3
+# Time window: 10m
+#
+[DEFAULT]
+findtime = 600
+maxretry = 3
+bantime = 24h
+bantime.increment = true
+bantime.factor = 2
+bantime.maxtime = 30d
+backend = systemd
+ignoreip = 127.0.0.1/8
+
+[sshd]
+enabled = true
+port = 22
+
+[proxmox]
+enabled = true
+port = http,https,8006
+filter = proxmox

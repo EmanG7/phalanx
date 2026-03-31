@@ -47,3 +47,6 @@
 
 - name: Include firewall tasks
   ansible.builtin.include_tasks: modules/firewall.yml
+
+- name: Include fail2ban tasks
+  ansible.builtin.include_tasks: modules/fail2ban.yml
