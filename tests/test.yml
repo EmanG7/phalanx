@@ -1,6 +1,10 @@
 #SPDX-License-Identifier: BSD-3-Clause
 ---
+
 - hosts: proxmox
   become: true
   roles:
-    - phalanx
+    - role: phalanx
+      module_audit: true
+      module_firewall: true
+      module_fail2ban: true

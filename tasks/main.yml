@@ -25,6 +25,7 @@
 
 - name: Import config backup tasks
   ansible.builtin.import_tasks: modules/config-backup.yml
+  when: disable_backup is defined and not disable_backup | bool
 
 - name: Install minimum packages
   ansible.builtin.package:
@@ -43,10 +44,13 @@
     mode: 0644
 
 - name: Import audit tasks
-  ansible.builtin.import_tasks: modules/audit.yml
+  ansible.builtin.include_tasks: modules/audit.yml
+  when: module_audit | default(true) | bool
 
 - name: Include firewall tasks
   ansible.builtin.include_tasks: modules/firewall.yml
+  when: module_firewall | default(true) | bool
 
 - name: Include fail2ban tasks
   ansible.builtin.include_tasks: modules/fail2ban.yml
+  when: module_fail2ban | default(true) | bool

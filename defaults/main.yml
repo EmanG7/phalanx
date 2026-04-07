@@ -1,6 +1,12 @@
 #SPDX-License-Identifier: BSD-3-Clause
 ---
 # defaults file for phalanx
+disable_backup: false
+
+module_audit: true
+module_firewall: true
+module_fail2ban: true
+
 iptables_tables: 
   - "filter"
   - "security"
