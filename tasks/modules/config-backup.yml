@@ -3,7 +3,7 @@
 
 - name: Create backup directory
   ansible.builtin.file:
-    path: "/root/config-backup-{{ ansible_date_time.iso8601 }}"
+    path: "/root/config-backup-{{ ansible_facts.date_time.iso8601 }}"
     state: directory
     owner: root
     group: root

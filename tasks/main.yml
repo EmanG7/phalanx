@@ -43,7 +43,7 @@
     group: root
     mode: 0644
 
-- name: Import audit tasks
+- name: Include audit tasks
   ansible.builtin.include_tasks: modules/audit.yml
   when: module_audit | default(true) | bool
 
@@ -54,3 +54,22 @@
 - name: Include fail2ban tasks
   ansible.builtin.include_tasks: modules/fail2ban.yml
   when: module_fail2ban | default(true) | bool
+
+- name: Config harden kernel
+  ansible.builtin.copy:
+    src: "files/kernel/{{ item }}.conf"
+    dest: "/etc/sysctl.d/{{ item }}.conf"
+    owner: root
+    group: root
+    mode: 0600
+  loop: 
+    - "10-tuning"
+    - "90-hardening"
+  when: module_harden_kernel | default(true) | bool
+
+- name: Load hardened kernel
+  ansible.builtin.command: sysctl -p /etc/sysctl.d/*.conf > /dev/null 2>&1
+  when: module_harden_kernel | default(true) | bool
+  register: sysctl_result
+  failed_when: sysctl_result.rc > 1
+  changed_when: false

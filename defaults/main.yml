@@ -6,6 +6,7 @@ disable_backup: false
 module_audit: true
 module_firewall: true
 module_fail2ban: true
+module_harden_kernel: true
 
 iptables_tables: 
   - "filter"
