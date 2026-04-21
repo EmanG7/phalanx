@@ -73,3 +73,12 @@
   register: sysctl_result
   failed_when: sysctl_result.rc > 1
   changed_when: false
+
+- name: Config harden sudoer
+  ansible.builtin.copy:
+    src: "files/sudoer/hardening"
+    dest: "/etc/sudoers.d/hardening"
+    owner: root
+    group: root
+    mode: 0440
+  when: module_harden_sudoer | default(true) | bool
