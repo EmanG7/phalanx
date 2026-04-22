@@ -9,6 +9,14 @@ module_fail2ban: true
 module_harden_kernel: true
 module_harden_sudoer: true
 
+disable_cis_modules: false
+
+module_cis_1_1_1_1: true
+module_cis_1_1_1_2: true
+module_cis_1_1_1_3: true
+module_cis_1_1_1_4: true
+module_cis_1_1_1_5: true
+
 iptables_tables: 
   - "filter"
   - "security"

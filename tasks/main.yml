@@ -82,3 +82,7 @@
     group: root
     mode: 0440
   when: module_harden_sudoer | default(true) | bool
+
+- name: Include CIS Benchmarks
+  ansible.builtin.include_tasks: modules/cis-benchmark.yml
+  when: disable_cis_modules is defined and not disable_cis_modules | bool
