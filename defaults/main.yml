@@ -16,6 +16,8 @@ module_cis_1_1_1_2: true
 module_cis_1_1_1_3: true
 module_cis_1_1_1_4: true
 module_cis_1_1_1_5: true
+module_cis_1_5_12: true
+module_cis_1_5_13: true
 
 iptables_tables: 
   - "filter"
@@ -23,3 +25,6 @@ iptables_tables:
   - "mangle"
   - "nat"
   - "raw"
+
+cis_unused_services: "/etc/modprobe.d/cis-unused-services.conf"
+cis_coredump_conf: "/etc/systemd/coredump.conf.d/60-coredump.conf"
