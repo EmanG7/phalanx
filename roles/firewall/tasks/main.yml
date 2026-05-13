@@ -27,22 +27,22 @@
   loop: "{{ iptables_tables }}"
   changed_when: true
 
-- name: Import template of iptables/rules.v4
-  ansible.builtin.template:
-    src: iptables/rules.v4.j2
+- name: Import file of iptables/rules.v4
+  ansible.builtin.copy:
+    src: rules.v4
     dest: /etc/iptables/rules.v4
     owner: root
     group: root
     mode: 0600
     validate: "iptables-restore --test %s"
 
-- name: Restore iptables rules from imported template
+- name: Restore iptables rules from imported file
   ansible.builtin.command: iptables-restore /etc/iptables/rules.v4
   changed_when: true
 
 - name: Copy auto-restore for booting
   ansible.builtin.copy:
-    src: firewall/iptables
+    src: iptables
     dest: /etc/network/if-up.d/iptables
     owner: root
     group: root

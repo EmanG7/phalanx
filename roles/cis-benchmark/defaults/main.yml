@@ -1,0 +1,2 @@
+cis_unused_services: "/etc/modprobe.d/cis-unused-services.conf"
+cis_coredump_conf: "/etc/systemd/coredump.conf.d/60-coredump.conf"

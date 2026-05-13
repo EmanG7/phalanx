@@ -14,7 +14,7 @@
 
 - name: Copy rules over to host
   ansible.builtin.copy:
-    src: audit/phalanx.rules
+    src: phalanx.rules
     dest: /etc/audit/rules.d/phalanx.rules
     owner: root
     group: root

@@ -1,0 +1,43 @@
+#SPDX-License-Identifier: BSD-3-Clause
+---
+
+- name: Install minimum packages
+  ansible.builtin.package:
+    name: 
+      - sudo
+      - apt-listchanges
+      - unattended-upgrades
+    state: latest
+
+- name: Set up 20auto-upgrades
+  ansible.builtin.copy:
+    src: 20auto-upgrades
+    dest: /etc/apt/apt.conf.d/20auto-upgrades
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Config harden kernel
+  ansible.builtin.copy:
+    src: "files/kernel/{{ item }}.conf"
+    dest: "/etc/sysctl.d/{{ item }}.conf"
+    owner: root
+    group: root
+    mode: 0600
+  loop: 
+    - "10-tuning"
+    - "90-hardening"
+
+- name: Load hardened kernel
+  ansible.builtin.command: sysctl -p /etc/sysctl.d/*.conf > /dev/null 2>&1
+  register: sysctl_result
+  failed_when: sysctl_result.rc > 1
+  changed_when: false
+
+- name: Config harden sudoer
+  ansible.builtin.copy:
+    src: "files/sudoer/hardening"
+    dest: "/etc/sudoers.d/hardening"
+    owner: root
+    group: root
+    mode: 0440

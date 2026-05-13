@@ -1,0 +1,5 @@
+# Inventory files
+*.ini
+inventory.yml
+inventory.yaml
+inventory/

@@ -13,9 +13,9 @@
     owner: root
     group: root
 
-- name: Import template of fail2ban/jail.local
-  ansible.builtin.template:
-    src: fail2ban/jail.local.j2
+- name: Import file of fail2ban/jail.local
+  ansible.builtin.copy:
+    src: jail.local
     dest: /etc/fail2ban/jail.local
     owner: root
     group: root
@@ -23,7 +23,7 @@
 
 - name: Import file of fail2ban/proxmox.conf
   ansible.builtin.copy:
-    src: fail2ban/proxmox.conf
+    src: proxmox.conf
     dest: /etc/fail2ban/filter.d/proxmox.conf
     owner: root
     group: root
