@@ -1,7 +1,7 @@
 #SPDX-License-Identifier: BSD-3-Clause
 galaxy_info:
   author: Elijah Iverson
-  description: Modular Proxmox Hardening Role
+  description: Modular Proxmox hardening playbook made of multiple roles
 
   license: BSD-3-Clause
 

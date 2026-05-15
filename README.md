@@ -1,60 +1,22 @@
 phalanx
 =========
 
-Modular Proxmox Hardening Role
+Modular Proxmox hardening playbook made of multiple roles.
 
 Requirements
 ------------
 
-
-
-Role Variables
---------------
-
-Modular variables to enable/disable parts of the hardening role are as follows in the table.
-
-| Variables                    | How to use                                                     |
-|------------------------------|----------------------------------------------------------------|
-| `module_audit`               | Set to "false" to disable audit module. Defaults to "true".    |
-| `module_firewall`            | Set to "false" to disable firewall module. Defaults to "true". |
-| `module_fail2ban`            | Set to "false" to disable fail2ban module. Defaults to "true". |
-
-Extra Variables
-
-`disable_backup` -> Disables "Import config backup tasks" when set to "true". Default to "false".
-
-Dependencies
-------------
-
+- Minimum Ansible version: 2.2
+- Root access over SSH to Proxmox virtual environment.
 
 
 Security Features
 -----------------
 
+### CIS-Benchmarks
 
-
-Example Playbook
-----------------
-
-Quick-Start Playbook
-```yaml
-- hosts: proxmox
-  become: true
-  roles:
-    - phalanx
-```
----
-Modular Playbook
-```yaml
-- hosts: proxmox
-  become: true
-  roles:
-    - role: phalanx
-      module_audit: false
-      module_firewall: true
-      module_fail2ban: # undefined/blank -> defaults to true
-      # ...
-```
+- 1.1.1.1-5
+- 1.5.12-13
 
 License
 -------
